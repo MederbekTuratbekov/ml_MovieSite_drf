@@ -5,7 +5,8 @@ from .views import (UserProfileAPIView, CountryAPIView, CountryDetailAPIView,
                     ActorAPIView, ActorDetailAPIView,
                     GenreAPIView, GenreDetailAPIView,
                     MovieAPIView, MovieDetailAPIView,
-                    FavoriteMoviesAPIView, HistoryAPIView,
+                    MovieLanguagesAPIView, MovieMomentsAPIView,
+                    FavoriteMoviesAPIView, SaveToFavoriteAPIView, HistoryAPIView,
                     RegisterView, CustomLoginView, LogoutView, RatingAPIView)
 
 
@@ -20,8 +21,11 @@ urlpatterns = [
     path('director/<int:pk>/', DirectorDetailAPIView.as_view(), name='director_details'),
     path('actor/', ActorAPIView.as_view(), name='actors'),
     path('actor/<int:pk>/', ActorDetailAPIView.as_view(), name='actor_details'),
+    path('movie_languages/', MovieLanguagesAPIView.as_view(), name='movie_languages'),
+    path('movie_moments/', MovieMomentsAPIView.as_view(), name='movie_moments'),
     path('history/', HistoryAPIView.as_view(), name='histories'),
     path('favorite_movie/', FavoriteMoviesAPIView.as_view(), name='favorite_movies'),
+    path('save_to_favorite/', SaveToFavoriteAPIView.as_view(), name='save_to_favorite'),
     path('user/', UserProfileAPIView.as_view(), name='user'),
     path('rating/', RatingAPIView.as_view(), name='ratings'),
     path('register/', RegisterView.as_view(), name='register'),
