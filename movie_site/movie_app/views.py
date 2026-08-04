@@ -10,7 +10,7 @@ from .models import UserProfile, Country, Director, Actor, Genre, Movie, MovieLa
 from .serializers import (UserProfileSerializers, CountrySerializers, CountryDetailSerializers, DirectorSerializers, ActorSerializers, GenreSerializers, GenreDetailSerializers,
                           MovieSerializers, MovieDetailSerializers, MovieLanguagesSerializers, MovieMomentsSerializers,
                           RatingSerializers, SaveToFavoriteSerializers, FavoriteMoviesSerializers, HistorySerializers,
-                          LoginSerializer, UserSerializer)
+                          LoginSerializer, UserSerializer, RatingCreateSerializers)
 
 
 
@@ -106,9 +106,19 @@ class MovieMomentsAPIView(generics.ListAPIView):
     queryset = MovieMoments.objects.all()
     serializer_class = MovieMomentsSerializers
 
-class RatingAPIView(generics.ListAPIView):
+class RatingAPIView(generics.ListCreateAPIView):
     queryset = Rating.objects.all()
-    serializer_class = RatingSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return RatingCreateSerializers
+        return RatingSerializers
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
 class SaveToFavoriteAPIView(generics.ListAPIView):
     queryset = SaveToFavorite.objects.all()
