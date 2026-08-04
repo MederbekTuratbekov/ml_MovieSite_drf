@@ -114,10 +114,18 @@ class SaveToFavoriteAPIView(generics.ListAPIView):
     queryset = SaveToFavorite.objects.all()
     serializer_class = SaveToFavoriteSerializers
 
-class FavoriteMoviesAPIView(generics.ListAPIView):
+class FavoriteMoviesAPIView(generics.ListCreateAPIView):
     queryset = FavoriteMovies.objects.all()
     serializer_class = FavoriteMoviesSerializers
+    permission_classes = [permissions.IsAuthenticated]
 
-class HistoryAPIView(generics.ListAPIView):
+    def get_queryset(self):
+        return FavoriteMovies.objects.filter(save_to_favorite__user=self.request.user)
+
+class HistoryAPIView(generics.ListCreateAPIView):
     queryset = History.objects.all()
     serializer_class = HistorySerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return History.objects.filter(user=self.request.user)
