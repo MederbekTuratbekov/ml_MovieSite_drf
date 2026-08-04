@@ -142,13 +142,18 @@ class MovieLanguagesSerializers(serializers.ModelSerializer):
 
 class RatingSerializers(serializers.ModelSerializer):
     user = UserProfileMovieDetailSerializers()
-    parent = UserProfileMovieDetailSerializers(source='parent.user', read_only=True, allow_null=True)
+    parent = serializers.SerializerMethodField()
     created_date = serializers.DateTimeField(format='%d-%m-%Y %H:%M')
     check_comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Rating
         fields = ['user', 'parent', 'text', 'stars', 'created_date', 'check_comments']
+
+    def get_parent(self, obj):
+        if obj.parent is None:
+            return None
+        return UserProfileMovieDetailSerializers(obj.parent.user).data
 
     def get_check_comments(self, obj):
         return model.predict(vector.transform([obj.text]))
