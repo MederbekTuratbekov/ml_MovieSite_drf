@@ -199,10 +199,11 @@ class SaveToFavoriteSerializers(serializers.ModelSerializer):
 class FavoriteMoviesSerializers(serializers.ModelSerializer):
     class Meta:
         model = FavoriteMovies
-        fields = ['movie', 'save_to_favorite']
+        fields = ['movie']
 
 
 class HistorySerializers(serializers.ModelSerializer):
     class Meta:
         model = History
         fields = ['user', 'movie', 'viewed_at']
+        read_only_fields = ['user']
