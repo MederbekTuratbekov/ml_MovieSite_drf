@@ -132,6 +132,10 @@ class FavoriteMoviesAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         return FavoriteMovies.objects.filter(save_to_favorite__user=self.request.user)
 
+    def perform_create(self, serializer):
+        save_to_favorite, _ = SaveToFavorite.objects.get_or_create(user=self.request.user)
+        serializer.save(save_to_favorite=save_to_favorite)
+
 class HistoryAPIView(generics.ListCreateAPIView):
     queryset = History.objects.all()
     serializer_class = HistorySerializers
