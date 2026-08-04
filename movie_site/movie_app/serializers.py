@@ -154,6 +154,16 @@ class RatingSerializers(serializers.ModelSerializer):
         return model.predict(vector.transform([obj.text]))
 
 
+class RatingCreateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ['movie', 'stars', 'text', 'parent']
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
+        
+
 class MovieDetailSerializers(serializers.ModelSerializer):
     director = DirectorMovieDetailSerializers(many=True)
     actor = ActorMovieDetailSerializers(many=True)
