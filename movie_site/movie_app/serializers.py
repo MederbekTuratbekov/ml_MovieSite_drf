@@ -7,10 +7,10 @@ import joblib
 from django.conf import settings
 
 
-model_path = os.path.join(settings.BASE_DIR, 'model_nb.pkl')
+model_path = os.path.join(settings.BASE_DIR, 'model_nb_MovieComments.pkl')
 model = joblib.load(model_path)
 
-vector_path = os.path.join(settings.BASE_DIR, 'vector.pkl')
+vector_path = os.path.join(settings.BASE_DIR, 'vector_MovieComments.pkl')
 vector = joblib.load(vector_path)
 
 
