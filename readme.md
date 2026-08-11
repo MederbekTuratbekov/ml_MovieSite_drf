@@ -142,7 +142,7 @@ curl -X POST http://localhost/rating/ \
 
 ## Project Structure
 ```
-movie_site/
+ml_MovieSite_drf/
     .gitignore
     readme.md
     movie_site/
