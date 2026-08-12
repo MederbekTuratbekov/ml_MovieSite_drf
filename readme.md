@@ -1,4 +1,4 @@
-# Movie Streaming Platform API
+# Movie Streaming Platform API 
 
 > Content delivery backend with built-in NLP spoiler detection —
 > Naive Bayes classifier protects user experience and increases
